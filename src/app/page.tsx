@@ -30,7 +30,7 @@ function reveal(delay = 0) {
 function DonateText() {
   return (
     <span className="inline-flex items-center translate-y-[8px]">
-      <span className="donate-gradient inline-flex -translate-y-2 sm:-translate-y-1 items-center">
+      <span className="donate-gradient inline-flex -translate-y-1 sm:-translate-y-1 items-center">
         <DonateMark />
         onate
       </span>
