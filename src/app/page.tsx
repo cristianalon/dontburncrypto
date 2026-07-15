@@ -27,6 +27,18 @@ function reveal(delay = 0) {
   };
 }
 
+function DonateText() {
+  return (
+    <span className="inline-flex items-center translate-y-[8px]">
+      <span className="donate-gradient inline-flex -translate-y-1 items-center">
+        <DonateMark />
+        onate
+      </span>
+      <span className="text-white translate-y-[-1px]"> it.</span>
+    </span>
+  );
+}
+
 export default function Home() {
   const [activeWallet, setActiveWallet] = useState<Wallet | null>(null);
 
@@ -45,7 +57,6 @@ export default function Home() {
     <MotionConfig reducedMotion="user">
       <main className="relative flex flex-col items-center overflow-hidden">
 
-        {/* HERO */}
         <section
           aria-label="Introduction"
           className="relative flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -69,11 +80,7 @@ export default function Home() {
               onClick={scrollToWallets}
               className="donate-link mt-4 text-hero font-semibold text-balance"
             >
-              <span className="donate-gradient inline-flex items-center">
-                <DonateMark />
-                onate
-              </span>
-              <span className="text-white"> it.</span>
+              <DonateText />
             </button>
 
             <button
@@ -87,7 +94,6 @@ export default function Home() {
         </section>
 
 
-        {/* WALLETS */}
         <section
           id="wallets"
           aria-labelledby="wallets-heading"
@@ -114,7 +120,6 @@ export default function Home() {
         </section>
 
 
-        {/* STATEMENT */}
         <section
           aria-labelledby="statement-heading"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -143,7 +148,6 @@ export default function Home() {
         </section>
 
 
-        {/* TRANSPARENCY */}
         <section
           aria-labelledby="transparency-heading"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -165,7 +169,6 @@ export default function Home() {
         </section>
 
 
-        {/* CLOSING */}
         <section
           aria-label="Closing"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -178,11 +181,7 @@ export default function Home() {
             <br />
 
             <button onClick={scrollToWallets}>
-              <span className="donate-gradient inline-flex items-center">
-                <DonateMark />
-                onate
-              </span>
-              <span className="text-white"> it.</span>
+              <DonateText />
             </button>
           </motion.p>
         </section>

@@ -5,7 +5,7 @@ type DonateMarkProps = {
 export default function DonateMark({ className }: DonateMarkProps) {
   return (
     <span
-      className={`inline-flex items-center ${className ?? ""}`}
+      className={`inline-flex items-center translate-y-[8px] ${className ?? ""}`}
       aria-hidden="true"
     >
       <svg
@@ -13,7 +13,7 @@ export default function DonateMark({ className }: DonateMarkProps) {
         className="mr-[-0.05em] h-[0.95em] w-[0.82em]"
         fill="none"
       >
-        <g transform="translate(0 1.5)">
+        <g>
           {/* Outer coin circle */}
           <circle
             cx="21"
