@@ -48,7 +48,7 @@ function WalletCard({ wallet, onShowQR, index }: WalletCardProps) {
       style={{ transition: "border-color 0.5s, box-shadow 0.5s" }}
     >
       <div className="flex items-center gap-5">
-        <Glyph className="h-9 w-9 text-white/90" />
+        <Glyph className="h-10 w-10" />
         <div>
           <p className="text-lg font-medium text-white">{wallet.name}</p>
           <p className="mt-0.5 text-xs tracking-wide text-ash">
