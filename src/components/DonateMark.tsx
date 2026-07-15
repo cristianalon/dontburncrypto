@@ -5,7 +5,7 @@ type DonateMarkProps = {
 export default function DonateMark({ className }: DonateMarkProps) {
   return (
     <span
-      className={`inline-flex items-center translate-y-[8px] ${className ?? ""}`}
+      className={`inline-flex items-center translate-y-[5px] sm:translate-y-[9px] ${className ?? ""}`}
       aria-hidden="true"
     >
       <svg
