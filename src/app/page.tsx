@@ -7,12 +7,10 @@ import { MotionConfig, motion } from "framer-motion";
 import WalletCard from "@/components/WalletCard";
 import { wallets, type Wallet } from "@/lib/wallets";
 
-// Both are only needed after the initial paint — the ember field is
-// purely decorative and the QR modal only mounts on interaction — so
-// they're code-split out of the main bundle.
 const EmberField = dynamic(() => import("@/components/EmberField"), {
   ssr: false,
 });
+
 const QRModal = dynamic(() => import("@/components/QRModal"), {
   ssr: false,
 });
@@ -32,15 +30,21 @@ export default function Home() {
   const [activeWallet, setActiveWallet] = useState<Wallet | null>(null);
 
   const closeModal = useCallback(() => setActiveWallet(null), []);
-const scrollToWallets = useCallback(() => {
-  document
-    .getElementById("wallets")
-    ?.scrollIntoView({ behavior: "smooth" });
-}, []);
+
+  const scrollToWallets = useCallback(() => {
+    document
+      .getElementById("wallets")
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+  }, []);
+
   return (
     <MotionConfig reducedMotion="user">
       <main className="relative flex flex-col items-center overflow-hidden">
-        {/* 1. Hero */}
+
+        {/* HERO */}
         <section
           aria-label="Introduction"
           className="relative flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -51,38 +55,43 @@ const scrollToWallets = useCallback(() => {
           </div>
 
           <motion.div
-  initial={{ opacity: 0, y: 24 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 1.3, ease: easing }}
-  className="relative z-10 flex flex-col items-center"
->
-  <h1 className="text-hero max-w-5xl font-semibold text-white text-balance">
-    Before you burn it.
-  </h1>
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.3, ease: easing }}
+            className="relative z-10 flex flex-col items-center"
+          >
+            <h1 className="text-hero max-w-5xl font-semibold text-white text-balance">
+              Before you burn it.
+            </h1>
 
-  <button
-    onClick={scrollToWallets}
-    className="donate-link mt-4 text-hero font-semibold text-balance"
-  >
-    <span className="donate-gradient">Donate</span>
-    <span className="text-white"> it.</span>
-  </button>
+            <button
+              onClick={scrollToWallets}
+              className="donate-link mt-4 text-hero font-semibold text-balance"
+            >
+              <span className="donate-gradient">
+                Donate
+              </span>
+              <span className="text-white">
+                {" "}it.
+              </span>
+            </button>
 
-  <button
-    onClick={scrollToWallets}
-    className="mt-16 bounce-arrow text-white/60 transition hover:text-white"
-    aria-label="Scroll to donation wallets"
-  >
-    <ChevronDown size={42} />
-  </button>
-</motion.div>
+            <button
+              onClick={scrollToWallets}
+              className="mt-16 bounce-arrow text-white/60 transition hover:text-white"
+              aria-label="Scroll to donation wallets"
+            >
+              <ChevronDown size={42} />
+            </button>
+          </motion.div>
         </section>
 
-        {/* 2. Wallets */}
-<section
-  id="wallets"
-  aria-labelledby="wallets-heading"
-          className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 py-30"
+
+        {/* WALLETS */}
+        <section
+          id="wallets"
+          aria-labelledby="wallets-heading"
+          className="scroll-mt-24 flex min-h-[100svh] w-full flex-col items-center justify-center px-6 py-30"
         >
           <motion.h2
             id="wallets-heading"
@@ -104,7 +113,8 @@ const scrollToWallets = useCallback(() => {
           </div>
         </section>
 
-        {/* 3. The statement */}
+
+        {/* STATEMENT */}
         <section
           aria-labelledby="statement-heading"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -114,13 +124,22 @@ const scrollToWallets = useCallback(() => {
             {...reveal()}
             className="text-hero max-w-4xl font-semibold text-balance"
           >
-            <span className="text-ash">Burning destroys value.</span>
+            <span className="text-ash">
+              Burning destroys value.
+            </span>
             <br />
-            <span className="text-white">Donating creates value.</span>
+
+            <button
+              onClick={scrollToWallets}
+              className="text-white transition hover:text-orange-400"
+            >
+              Donating creates value.
+            </button>
           </motion.h2>
         </section>
 
-        {/* 4. Transparency */}
+
+        {/* TRANSPARENCY */}
         <section
           aria-labelledby="transparency-heading"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -132,15 +151,18 @@ const scrollToWallets = useCallback(() => {
           >
             Blockchain is public.
           </motion.h2>
-          <motion.p
+
+          <motion.button
             {...reveal(0.25)}
-            className="mt-6 text-2xl text-white sm:text-3xl"
+            onClick={scrollToWallets}
+            className="mt-6 text-2xl text-white transition hover:text-orange-400 sm:text-3xl"
           >
             Every donation is verifiable.
-          </motion.p>
+          </motion.button>
         </section>
 
-        {/* 5. Minimal closing */}
+
+        {/* CLOSING */}
         <section
           aria-label="Closing"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -150,13 +172,28 @@ const scrollToWallets = useCallback(() => {
             className="text-hero max-w-5xl font-semibold text-balance text-white"
           >
             Before you burn it.
-<br />
-<span className="donate-gradient">Donate</span>
-<span className="text-white"> it.</span>
+            <br />
+
+            <button
+              onClick={scrollToWallets}
+              className="donate-gradient"
+            >
+              Donate
+            </button>
+
+            <span className="text-white">
+              {" "}it.
+            </span>
+
           </motion.p>
         </section>
 
-        <QRModal wallet={activeWallet} onClose={closeModal} />
+
+        <QRModal
+          wallet={activeWallet}
+          onClose={closeModal}
+        />
+
       </main>
     </MotionConfig>
   );
