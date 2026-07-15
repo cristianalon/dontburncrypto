@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -76,11 +77,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-display antialiased bg-black text-white`}
       >
         {children}
+
         <script
           type="application/ld+json"
-          // Static, hand-authored object — never user input — so this is safe.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
         />
+
+        <GoogleAnalytics gaId="G-5WHB01M7RL" />
       </body>
     </html>
   );
