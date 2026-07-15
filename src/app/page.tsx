@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { MotionConfig, motion } from "framer-motion";
 import WalletCard from "@/components/WalletCard";
 import DonateMark from "@/components/DonateMark";
+import Footer from "@/components/Footer";
 import { wallets, type Wallet } from "@/lib/wallets";
 
 const EmberField = dynamic(() => import("@/components/EmberField"), {
@@ -45,18 +46,17 @@ export default function Home() {
   const closeModal = useCallback(() => setActiveWallet(null), []);
 
   const scrollToWallets = useCallback(() => {
-    document
-      .getElementById("wallets")
-      ?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+    document.getElementById("wallets")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
   }, []);
 
   return (
     <MotionConfig reducedMotion="user">
       <main className="relative flex flex-col items-center overflow-hidden">
 
+        {/* HERO */}
         <section
           aria-label="Introduction"
           className="relative flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -93,7 +93,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-
+        {/* WALLETS */}
         <section
           id="wallets"
           aria-labelledby="wallets-heading"
@@ -119,7 +119,7 @@ export default function Home() {
           </div>
         </section>
 
-
+        {/* STATEMENT */}
         <section
           aria-labelledby="statement-heading"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -147,7 +147,7 @@ export default function Home() {
           </motion.h2>
         </section>
 
-
+        {/* TRANSPARENCY */}
         <section
           aria-labelledby="transparency-heading"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -168,7 +168,7 @@ export default function Home() {
           </button>
         </section>
 
-
+        {/* CLOSING */}
         <section
           aria-label="Closing"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 text-center"
@@ -186,7 +186,10 @@ export default function Home() {
           </motion.p>
         </section>
 
+        {/* FOOTER */}
+        <Footer />
 
+        {/* QR MODAL */}
         <QRModal wallet={activeWallet} onClose={closeModal} />
 
       </main>
