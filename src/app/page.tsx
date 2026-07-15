@@ -5,6 +5,7 @@ import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
 import { MotionConfig, motion } from "framer-motion";
 import WalletCard from "@/components/WalletCard";
+import DonateMark from "@/components/DonateMark";
 import { wallets, type Wallet } from "@/lib/wallets";
 
 const EmberField = dynamic(() => import("@/components/EmberField"), {
@@ -68,12 +69,11 @@ export default function Home() {
               onClick={scrollToWallets}
               className="donate-link mt-4 text-hero font-semibold text-balance"
             >
-              <span className="donate-gradient">
-                Donate
+              <span className="donate-gradient inline-flex items-center">
+                <DonateMark />
+                onate
               </span>
-              <span className="text-white">
-                {" "}it.
-              </span>
+              <span className="text-white"> it.</span>
             </button>
 
             <button
@@ -124,9 +124,13 @@ export default function Home() {
             {...reveal()}
             className="text-hero max-w-4xl font-semibold text-balance"
           >
-            <span className="text-ash">
+            <button
+              onClick={scrollToWallets}
+              className="text-ash transition hover:text-orange-400"
+            >
               Burning destroys value.
-            </span>
+            </button>
+
             <br />
 
             <button
@@ -152,13 +156,12 @@ export default function Home() {
             Blockchain is public.
           </motion.h2>
 
-          <motion.button
-            {...reveal(0.25)}
+          <button
             onClick={scrollToWallets}
             className="mt-6 text-2xl text-white transition hover:text-orange-400 sm:text-3xl"
           >
             Every donation is verifiable.
-          </motion.button>
+          </button>
         </section>
 
 
@@ -174,25 +177,18 @@ export default function Home() {
             Before you burn it.
             <br />
 
-            <button
-              onClick={scrollToWallets}
-              className="donate-gradient"
-            >
-              Donate
+            <button onClick={scrollToWallets}>
+              <span className="donate-gradient inline-flex items-center">
+                <DonateMark />
+                onate
+              </span>
+              <span className="text-white"> it.</span>
             </button>
-
-            <span className="text-white">
-              {" "}it.
-            </span>
-
           </motion.p>
         </section>
 
 
-        <QRModal
-          wallet={activeWallet}
-          onClose={closeModal}
-        />
+        <QRModal wallet={activeWallet} onClose={closeModal} />
 
       </main>
     </MotionConfig>
