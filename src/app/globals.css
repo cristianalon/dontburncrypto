@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --btc: #F7931A;
+  --btc-light: #FFD15C;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -12,8 +17,8 @@ html {
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background: #000;
+  color: #fff;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   text-rendering: optimizeLegibility;
@@ -22,28 +27,79 @@ body {
 
 ::selection {
   background: #ff6a39;
-  color: #000000;
+  color: #000;
 }
 
-/* Visible keyboard focus everywhere */
 :focus-visible {
-  outline: 1px solid rgba(255, 255, 255, 0.6);
+  outline: 1px solid rgba(255,255,255,.6);
   outline-offset: 4px;
   border-radius: 4px;
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+  *::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
   }
 }
 
-.text-balance {
-  text-wrap: balance;
+.text-balance{
+  text-wrap:balance;
+}
+
+/* ---------- NEW ---------- */
+
+.donate-gradient{
+  background: linear-gradient(
+    90deg,
+    #F7931A 0%,
+    #FFB22C 45%,
+    #FFD54F 100%
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.donate-link{
+  cursor:pointer;
+  transition:.35s;
+}
+
+.donate-link:hover{
+  filter:drop-shadow(0 0 14px rgba(247,147,26,.45));
+  transform:translateY(-2px);
+}
+
+.wallet-glow-btc:hover{
+  box-shadow:0 0 40px rgba(247,147,26,.18);
+}
+
+.wallet-glow-eth:hover{
+  box-shadow:0 0 40px rgba(98,126,234,.18);
+}
+
+.wallet-glow-sol:hover{
+  box-shadow:0 0 40px rgba(20,241,149,.18);
+}
+
+.wallet-glow-usdt:hover{
+  box-shadow:0 0 40px rgba(38,161,123,.18);
+}
+
+.bounce-arrow{
+  animation:bounceArrow 2s infinite;
+}
+
+@keyframes bounceArrow{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(10px);
+  }
 }

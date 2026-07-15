@@ -1,9 +1,9 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { X } from "lucide-react";
+import QRCode from "qrcode";
 import type { Wallet } from "@/lib/wallets";
 import { BtcGlyph, EthGlyph, SolGlyph, UsdtGlyph } from "./CoinGlyphs";
 import CopyButton from "./CopyButton";
@@ -41,8 +41,19 @@ function getPaymentUri(wallet: Wallet) {
 function QRModal({ wallet, onClose }: QRModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
+  const [qrImage, setQrImage] = useState("");
+
   useEffect(() => {
     if (!wallet) return;
+
+    QRCode.toDataURL(getPaymentUri(wallet), {
+      width: 520,
+      margin: 1,
+      color: {
+        dark: "#FFFFFF",
+        light: "#000000",
+      },
+    }).then(setQrImage);
 
     closeButtonRef.current?.focus();
     document.body.style.overflow = "hidden";
@@ -65,12 +76,6 @@ function QRModal({ wallet, onClose }: QRModalProps) {
   );
 
   const Glyph = wallet ? glyphs[wallet.id] : null;
-
-  const qrSrc = wallet
-    ? `https://api.qrserver.com/v1/create-qr-code/?size=480x480&margin=0&color=ffffff&bgcolor=000000&data=${encodeURIComponent(
-        getPaymentUri(wallet)
-      )}`
-    : "";
 
   return (
     <AnimatePresence>
@@ -108,13 +113,15 @@ function QRModal({ wallet, onClose }: QRModalProps) {
               </h3>
             </div>
 
-            <Image
-              src={qrSrc}
-              alt={`QR ${wallet.name}`}
-              width={240}
-              height={240}
-              className="rounded-2xl border border-line"
-            />
+            {qrImage && (
+              <img
+                src={qrImage}
+                alt={`${wallet.name} QR`}
+                className="rounded-2xl border border-line"
+                width={240}
+                height={240}
+              />
+            )}
 
             <p className="break-all text-center font-mono text-xs text-ash">
               {wallet.address}

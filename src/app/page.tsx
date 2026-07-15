@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
 import { MotionConfig, motion } from "framer-motion";
@@ -31,7 +32,11 @@ export default function Home() {
   const [activeWallet, setActiveWallet] = useState<Wallet | null>(null);
 
   const closeModal = useCallback(() => setActiveWallet(null), []);
-
+const scrollToWallets = useCallback(() => {
+  document
+    .getElementById("wallets")
+    ?.scrollIntoView({ behavior: "smooth" });
+}, []);
   return (
     <MotionConfig reducedMotion="user">
       <main className="relative flex flex-col items-center overflow-hidden">
@@ -45,21 +50,38 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black" />
           </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.3, ease: easing }}
-            className="text-hero relative z-10 max-w-5xl font-semibold text-white text-balance"
-          >
-            Before you burn it.
-            <br />
-            Donate it.
-          </motion.h1>
+          <motion.div
+  initial={{ opacity: 0, y: 24 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1.3, ease: easing }}
+  className="relative z-10 flex flex-col items-center"
+>
+  <h1 className="text-hero max-w-5xl font-semibold text-white text-balance">
+    Before you burn it.
+  </h1>
+
+  <button
+    onClick={scrollToWallets}
+    className="donate-link mt-4 text-hero font-semibold text-balance"
+  >
+    <span className="donate-gradient">Donate</span>
+    <span className="text-white"> it.</span>
+  </button>
+
+  <button
+    onClick={scrollToWallets}
+    className="mt-16 bounce-arrow text-white/60 transition hover:text-white"
+    aria-label="Scroll to donation wallets"
+  >
+    <ChevronDown size={42} />
+  </button>
+</motion.div>
         </section>
 
         {/* 2. Wallets */}
-        <section
-          aria-labelledby="wallets-heading"
+<section
+  id="wallets"
+  aria-labelledby="wallets-heading"
           className="flex min-h-[100svh] w-full flex-col items-center justify-center px-6 py-30"
         >
           <motion.h2
@@ -128,8 +150,9 @@ export default function Home() {
             className="text-hero max-w-5xl font-semibold text-balance text-white"
           >
             Before you burn it.
-            <br />
-            Donate it.
+<br />
+<span className="donate-gradient">Donate</span>
+<span className="text-white"> it.</span>
           </motion.p>
         </section>
 
