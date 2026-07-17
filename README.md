@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="hero.png" alt="Don't Burn Crypto" width="100%">
+</p>
+
 # 🟠 Don't Burn Crypto
 
 ## Before you burn it. Donate it.
